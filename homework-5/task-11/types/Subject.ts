@@ -1,0 +1,1 @@
+export type Subject = 'Math' | 'Science' | 'Literature' | 'History';
