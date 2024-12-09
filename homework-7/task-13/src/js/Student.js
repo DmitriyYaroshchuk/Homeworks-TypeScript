@@ -3,6 +3,7 @@ import Course from "./Course.js";
 
 class Student extends User {
     static isStudent(obj) {
+        if (typeof obj !== "object") return false;
         return obj instanceof Student;
     }
     #courses = [];
@@ -12,7 +13,7 @@ class Student extends User {
     }
 
     get courses() {
-        return this.#courses;
+        return Object.freeze(this.#courses);
     }
 
     enroll(course) {

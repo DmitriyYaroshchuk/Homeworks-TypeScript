@@ -21,20 +21,36 @@ class CourseManager {
     }
 
     getUserById(userId) {
-        return this.#users.find((user) => user.id === userId);
+        const certainUser = this.#users.find((user) => user.id === userId);
+        if (!certainUser) {
+            throw new Error(`User with ID ${userId} not found.`);
+        }
+        return certainUser;
     }
 
     getCourseById(courseId) {
-        return this.#courses.find((course) => course.id === courseId);
+        const certainCourse = this.#courses.find((course) => course.id === courseId);
+        if (!certainCourse) {
+            throw new Error(`Course with ID ${courseId} not found.`);
+        }
+        return certainCourse;
     }
 
     assignTeacherToCourse(courseId, teacherId) {
+        if (typeof courseId !== "number" || typeof teacherId !== "number") {
+            throw new Error('Invalid arguments: "courseId" and "teacherId" must both be numbers.')
+        }
+
         const selectedTeacher = this.getUserById(teacherId);
         const selectedCourse = this.getCourseById(courseId);
         selectedCourse.changeTeacher(selectedTeacher);
     }
 
     enrollStudentToCourse(courseId, studentId) {
+        if (typeof courseId !== "number" || typeof studentId !== "number") {
+            throw new Error('Invalid arguments: "courseId" and "teacherId" must both be numbers.')
+        }
+
         const selectedCourse = this.getCourseById(courseId);
         const selectedStudent = this.getUserById(studentId);
         selectedCourse.addStudent(selectedStudent);

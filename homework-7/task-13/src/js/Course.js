@@ -4,6 +4,7 @@ import Student from "./Student.js";
 class Course {
     static currentId = 0;
     static isCourse(obj) {
+        if (typeof obj !== "object") return false;
         return obj instanceof Course;
     }
 
@@ -25,7 +26,7 @@ class Course {
 
     //___ Заменяет метод listStudents ___//
     get students() {
-        return [...this.#students];
+        return Object.freeze(this.#students);
     }
 
     get id() {
